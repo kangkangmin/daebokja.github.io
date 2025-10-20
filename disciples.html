@@ -1,66 +1,201 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title>대복자의 수제자 - 대복자 억까방지협회</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
+    :root{
+      --primary:#004aad;
+      --nav:#0066ff;
+      --bg:#f5f5f5;
+      --stick:black;
     }
-    header {
-      background-color: #004aad;
-      color: white;
-      padding: 20px;
-      text-align: center;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Noto Sans,Arial;
+      background:var(--bg);
+      color:#111;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+      align-items:center;
     }
-    nav {
-      background-color: #0066ff;
-      display: flex;
-      justify-content: center;
-      padding: 10px 0;
+    header{width:100%; background:var(--primary); color:#fff; padding:18px 0; text-align:center}
+    nav{width:100%; background:var(--nav); display:flex; justify-content:center; gap:18px; padding:10px 0}
+    nav a{color:#fff; text-decoration:none; font-weight:700}
+    main{flex:1; width:100%; max-width:900px; padding:40px; text-align:center}
+
+    /* stickman + bench container */
+    .bench-wrap{
+      display:flex;
+      justify-content:center;
+      margin-top:20px;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
+
+    .lift {
+      position:relative;
+      width:260px;
+      height:180px;
+      /* center area for bench + stickman */
     }
-    nav a:hover {
-      text-decoration: underline;
+
+    /* bench base */
+    .bench {
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:20px;
+      width:220px;
+      height:16px;
+      background:#222;
+      border-radius:4px;
     }
-    main {
-      padding: 40px;
-      max-width: 800px;
-      margin: auto;
-      line-height: 1.6;
+    .bench .leg {
+      position:absolute;
+      bottom:-40px;
+      width:12px;
+      height:40px;
+      background:#222;
+      left:20%;
+      transform:translateX(-50%);
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #004aad;
-      color: white;
-      margin-top: 40px;
+    .bench .leg.right{ left:80%; transform:translateX(-50%); }
+
+    /* stickman */
+    .stickman {
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:36px;
+      width:120px;
+      height:140px;
+      cursor:pointer;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
     }
-    details {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: #e0e7ff;
-      border-radius: 5px;
+    .head{
+      width:28px;height:28px;border:3px solid var(--stick);border-radius:50%;
+      position:absolute; top:10px; left:46px; background:#ffdcb3;
     }
-    summary {
-      font-weight: bold;
-      cursor: pointer;
+    .torso{
+      position:absolute; top:42px; left:59px; width:4px; height:50px; background:var(--stick);
+    }
+
+    /* arms group that will move with the bar */
+    .arms {
+      position:absolute;
+      top:46px;
+      left:20px;
+      width:80px;
+      height:6px;
+      transform-origin: 50% 50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .arm-left, .arm-right {
+      position:absolute;
+      width:34px;
+      height:6px;
+      background:var(--stick);
+      top:0;
+    }
+    .arm-left{ left:0; transform-origin:right center; transform:rotate(12deg); }
+    .arm-right{ right:0; transform-origin:left center; transform:rotate(-12deg); }
+
+    /* barbell (bar + plates) */
+    .bar {
+      position:absolute;
+      top:-12px; /* relative to arms container */
+      left:50%;
+      transform:translateX(-50%);
+      width:220px;
+      height:6px;
+      background:#555;
+      border-radius:4px;
+      z-index:2;
+    }
+    .plate {
+      position:absolute;
+      width:26px;
+      height:26px;
+      background:#222;
+      border-radius:50%;
+      top:-10px;
+    }
+    .plate.left{ left:-12px; }
+    .plate.right{ right:-12px; }
+
+    /* plates closer to bar ends for visual */
+    .bar .small {
+      position:absolute;
+      width:16px;height:16px;border-radius:50%;background:#333; top:5px;
+    }
+    .bar .small.l{ left:8px; }
+    .bar .small.r{ right:8px; }
+
+    /* animation - bench press motion */
+    @keyframes press {
+      0%   { transform: translateY(0); }
+      40%  { transform: translateY(-36px); } /* up */
+      60%  { transform: translateY(-36px); }
+      100% { transform: translateY(0); }     /* down */
+    }
+
+    /* slight arm rotation to mimic angle change */
+    @keyframes armRotateL {
+      0% { transform: rotate(12deg); }
+      40% { transform: rotate(-8deg); }
+      60% { transform: rotate(-8deg); }
+      100% { transform: rotate(12deg); }
+    }
+    @keyframes armRotateR {
+      0% { transform: rotate(-12deg); }
+      40% { transform: rotate(8deg); }
+      60% { transform: rotate(8deg); }
+      100% { transform: rotate(-12deg); }
+    }
+
+    /* apply animation when .active */
+    .lift.anim .bar,
+    .lift.anim .arms {
+      animation: press 1.8s ease-in-out infinite;
+    }
+    .lift.anim .arm-left { animation: armRotateL 1.8s ease-in-out infinite; transform-origin:right center; }
+    .lift.anim .arm-right { animation: armRotateR 1.8s ease-in-out infinite; transform-origin:left center; }
+
+    /* popup + overlay */
+    .overlay {
+      display:none;
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.5); z-index:40;
+    }
+    .popup {
+      display:none;
+      position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+      width:320px; max-width:90%;
+      background:#fff; border:3px solid var(--primary); padding:18px;
+      box-shadow:0 10px 30px rgba(0,0,0,.25); z-index:50; border-radius:6px;
+    }
+    .popup h3{ margin:0 0 8px; }
+    .close-btn{
+      display:inline-block; margin-top:10px; padding:8px 12px; background:var(--primary); color:#fff; border-radius:5px; text-decoration:none; cursor:pointer;
+    }
+
+    footer{width:100%; background:var(--primary); color:#fff; padding:14px; text-align:center; margin-top:24px}
+    /* helper note */
+    .hint{ margin-top:18px; color:#555; font-size:0.95rem }
+    @media (max-width:520px){
+      .lift{ width:200px; height:150px }
+      .bar{ width:180px }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>대복자 억까방지협회</h1>
-  </header>
-
+  <header><h1>대복자 억까방지협회</h1></header>
   <nav>
     <a href="index.html">홈</a>
     <a href="about.html">대복자 소개</a>
@@ -70,21 +205,90 @@
 
   <main>
     <h2>대복자의 수제자</h2>
+    <p>아래 졸라맨(신무빈)을 클릭하면 프로필이 표시됩니다. 바벨은 꾹 누르거나 자동 애니메이션으로 들었다 내립니다.</p>
 
-    <details>
-      <summary>신무빈</summary>
-      <p>
-        05.10.28생, 현재 가천대 운동재활학과에 재학하고 있는 학생으로
-        평소에는 대복자를 음해하는 것이 특징이다. 그러나 마음 깊은 곳에는
-        언제나 대복자의 뜻과 지식을 받들어 온 세상이 대복자의 은혜로
-        가득 차는 것을 소망하고 있다.
-      </p>
-    </details>
+    <div class="bench-wrap">
+      <div class="lift" id="lift">
+        <!-- bench -->
+        <div class="bench">
+          <div class="leg"></div>
+          <div class="leg right"></div>
+        </div>
 
+        <!-- stickman (clickable) -->
+        <div class="stickman" id="stick" title="클릭: 프로필 보기 / 더블클릭: 애니메이션 토글">
+          <div class="head" aria-hidden="true"></div>
+          <div class="torso" aria-hidden="true"></div>
+
+          <!-- arms + bar grouped so they move together -->
+          <div class="arms" id="arms">
+            <div class="arm-left" aria-hidden="true"></div>
+            <div class="arm-right" aria-hidden="true"></div>
+
+            <!-- bar + plates -->
+            <div class="bar" aria-hidden="true">
+              <div class="small l"></div>
+              <div class="small r"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hint">더블클릭하면 바벨 움직임(애니메이션)을 시작/정지합니다.</div>
   </main>
 
-  <footer>
-    © 2025 대복자 억까방지협회
-  </footer>
+  <!-- overlay + popup -->
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <h3>신무빈</h3>
+    <p>
+      05.10.28생, 현재 가천대 운동재활학과에 재학하고 있는 학생으로
+      평소에는 대복자를 음해하는 것이 특징이다. 그러나 마음 깊은 곳에는
+      언제나 대복자의 뜻과 지식을 받들어 온 세상이 대복자의 은혜로
+      가득차는 것을 소망하고 있다.
+    </p>
+    <div style="text-align:right">
+      <a class="close-btn" id="closeBtn">닫기</a>
+    </div>
+  </div>
+
+  <footer>© 2025 대복자 억까방지협회</footer>
+
+  <script>
+    const lift = document.getElementById('lift');
+    const stick = document.getElementById('stick');
+    const overlay = document.getElementById('overlay');
+    const popup = document.getElementById('popup');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // 기본: 애니메이션 켜놓기
+    lift.classList.add('anim');
+
+    // 클릭(한 번) -> 팝업 열기
+    stick.addEventListener('click', (e) => {
+      popup.style.display = 'block';
+      overlay.style.display = 'block';
+    });
+
+    // 더블클릭 -> 애니메이션 토글
+    stick.addEventListener('dblclick', (e) => {
+      lift.classList.toggle('anim');
+    });
+
+    // 팝업 닫기
+    overlay.addEventListener('click', closePopup);
+    closeBtn.addEventListener('click', closePopup);
+    function closePopup(){
+      popup.style.display = 'none';
+      overlay.style.display = 'none';
+    }
+
+    // 키보드 ESC로 닫기
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closePopup();
+    });
+  </script>
 </body>
 </html>
+
