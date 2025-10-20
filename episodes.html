@@ -1,206 +1,24 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <title>대복자의 에피소드 - 대복자 억까방지협회</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: system-ui, sans-serif; margin: 0; background: #f5f5f5; color: #111; }
-    header { background: #004aad; color: white; text-align: center; padding: 18px 0; }
-    nav { background: #0066ff; display: flex; justify-content: center; gap: 18px; padding: 10px 0; }
-    nav a { color: white; text-decoration: none; font-weight: bold; }
-    main { max-width: 900px; margin: 0 auto; padding: 40px; }
-    footer { background: #004aad; color: white; text-align: center; padding: 14px; margin-top: 24px; }
-  </style>
-</head>
-<body>
-  <header><h1>대복자 억까방지협회</h1></header>
-  <nav>
-    <a href="index.html">홈</a>
-    <a href="about.html">대복자 소개</a>
-    <a href="achievements.html">대복자의 업적</a>
-    <a href="disciples.html">대복자의 수제자</a>
-    <a href="episodes.html">대복자의 에피소드</a>
-  </nav>
+<div class="frame" onclick="openModal('ep1')">
+  <h3>Ep.1 피부르산과 복자</h3>
+  <p>간단한 요약 내용...</p>
+</div>
 
-  <main>
-    <h2>대복자의 에피소드</h2>
-    <p>대복자 교수님의 강의 중 일화, 학생들과의 재미있는 순간, 감동적인 장면들을 여기에 모을 예정입니다.</p>
-  </main>
-
-  <footer>© 2025 대복자 억까방지협회</footer>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <title>대복자의 에피소드 - 대복자 억까방지협회</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      background: #f5f5f5;
-      color: #111;
-    }
-    header {
-      background: #004aad;
-      color: white;
-      text-align: center;
-      padding: 18px 0;
-    }
-    nav {
-      background: #0066ff;
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      padding: 10px 0;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px;
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    /* 액자(에피소드 카드) */
-    .frame {
-      background: white;
-      border: 6px solid #004aad;
-      border-radius: 20px;
-      box-shadow: 0 6px 10px rgba(0,0,0,0.1);
-      padding: 24px;
-      margin: 20px auto;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      max-width: 700px;
-    }
-    .frame:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 18px rgba(0,0,0,0.15);
-    }
-    .frame h3 {
-      margin-top: 0;
-      color: #004aad;
-    }
-
-    /* 팝업(모달) */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 100;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      max-width: 700px;
-      line-height: 1.6;
-      position: relative;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .close {
-      position: absolute;
-      top: 10px; right: 15px;
-      font-size: 24px;
-      cursor: pointer;
-      color: #333;
-    }
-    footer {
-      background: #004aad;
-      color: white;
-      text-align: center;
-      padding: 14px;
-      margin-top: 24px;
-    }
-  </style>
-</head>
-<body>
-  <header><h1>대복자 억까방지협회</h1></header>
-
-  <nav>
-    <a href="index.html">홈</a>
-    <a href="about.html">대복자 소개</a>
-    <a href="achievements.html">대복자의 업적</a>
-    <a href="disciples.html">대복자의 수제자</a>
-    <a href="episodes.html">대복자의 에피소드</a>
-  </nav>
-
-  <main>
-    <h2>📘 대복자의 에피소드</h2>
-
-    <!-- 에피소드 1 -->
-    <div class="frame" onclick="openModal('ep1')">
-      <h3>Ep.1 피부르산과 복자</h3>
-      <p>“교수님, 피부르산이 뭔가요?” — 신무빈의 운명적인 질문으로 시작된 전설의 강의실 사건...</p>
-    </div>
-
-    <!-- 팝업 내용 -->
-    <div id="ep1" class="modal" onclick="closeModal(event)">
-      <div class="modal-content">
-        <span class="close" onclick="closeModal(event)">&times;</span>
-        <h3>Ep.1 피부르산과 복자</h3>
-        <p>
-          대복자는 평소와 같이 본인의 연륜 넘치는 지식을 학생들의 머리에 푹푹 쑤셔넣고 있었다.
-          학생들은 금방이라도 터질 것 같이 고통스러운 표정을 짓고 있다. 그렇게 완벽하게 강의가 끝나갈 때쯤,
-          대복자는 피부르산이라는 용어를 쓰고야 말았다.
-        </p>
-        <p>
-          그 때, 신무빈이 대복자에게 질문했다.  
-          “교수님, 피부르산이 뭔가요?”  
-          그러자 대복자는 놀란듯이 말했다.  
-          “어? 아니 운동재활학과 학생이 피부르산을 몰라? 어... 그러면 안되는데?”  
-          그리고 무빈을 보며 물었다.  
-          “운동의 정의가 뭐야? 우리.. 우리 무빈이가 한 번 말해볼까?”
-        </p>
-        <p>
-          그러자 무빈은 뭔지 모르겠다는 표정으로  
-          “어... 움직이는 거요?”라고 답했다.  
-          그러자 대복자는 극히 화난 표정으로 강의실을 정복해버렸다.  
-          순식간에 학생들은 강의실을 뛰쳐나갔고 대복자는 마치 현역 때의 배구코트를 거니는 것처럼  
-          C를 배구공 삼아 던지기 시작했다.
-        </p>
-        <p>
-          다행히 살아남아 기숙사로 돌아온 무빈은 인터넷을 뒤져봤지만  
-          그 어디에도 <strong>피부르산</strong>이라는 용어는 존재하지 않았다.  
-          정확한 용어인 <strong>피루브산</strong>만이 존재할 뿐이었다.
-        </p>
-      </div>
-    </div>
-
-  </main>
-
-  <footer>© 2025 대복자 억까방지협회</footer>
-
-  <script>
-    function openModal(id) {
-      document.getElementById(id).style.display = "flex";
-    }
-    function closeModal(event) {
-      if (event.target.classList.contains("modal") || event.target.classList.contains("close")) {
-        document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-      }
-    }
-  </script>
-</body>
-</html>
+<div id="ep1" class="modal" onclick="closeModal(event)">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal(event)">&times;</span>
+    <h3>Ep.1 피부르산과 복자</h3>
+    <p>
+      대복자는 평소와 같이 본인의 연륜 넘치는 지식을 학생들의 머리에 푹푹 쑤셔넣고 있었다. 
+      학생들은 금방이라도 터질 것 같이 고통스러운 표정을 짓고 있다. 
+      그렇게 완벽하게 강의가 끝나갈 때 쯤, 대복자는 피부르산이라는 용어를 쓰고야 말았다. 
+      그 때, 신무빈이 대복자에게 질문했다. "교수님, 피부르산이 뭔가요?" 
+      그러자 대복자는 놀란듯이 말했다. "어? 아니 운동재활학과 학생이 피부르산을 몰라? 어... 그러면 안되는데?" 
+      그리고 무빈을 보며 물었다. "운동의 정의가 뭐야? 우리.. 우리 무빈이가 한 번 말해볼까?" 
+      그러자 무빈은 뭔지 모르겠다는 표정으로 "어... 움직이는 거요?"라고 답했다. 
+      그러자 대복자는 극히 화난 표정으로 강의실을 정복해버렸다. 
+      순식간에 학생들은 강의실을 뛰쳐나갔고 대복자는 마치 현역때의 배구코트를 거니는 것 처럼 C를 배구공 삼아 던지기 시작했다. 
+      다행히 살아남아 기숙사로 돌아온 무빈은 인터넷을 뒤져봤지만 그 어디에도 피부르산이라는 용어는 찾아 볼 수 없었다. 
+      정확한 용어인 피루브산만이 존재할 뿐이었다.
+    </p>
+  </div>
+</div>
